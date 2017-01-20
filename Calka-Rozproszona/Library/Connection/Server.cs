@@ -7,9 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 
-using Library.Observator;
-
-namespace Library.Connection
+namespace Library
 {
     public class Server : IObservable
     {
@@ -148,8 +146,12 @@ namespace Library.Connection
         {
             lock (locker)
             {
-                string newMessage = "[" + Thread.CurrentThread.ManagedThreadId + "] " + messag;
+                //string newMessage = "[" + Thread.CurrentThread.ManagedThreadId + "] " + messag;
+                //message = newMessage;
+
+                string newMessage = Thread.CurrentThread.ManagedThreadId + "@" + DateTime.Now.ToString("HH:mm:ss.ffff") + "@" + messag;
                 message = newMessage;
+
                 UpdateObservers();
             }
         }

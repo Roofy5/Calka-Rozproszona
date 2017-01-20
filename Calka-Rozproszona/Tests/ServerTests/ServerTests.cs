@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Library.Connection;
 using System.Net;
 
 using Tests.SupportClasses;

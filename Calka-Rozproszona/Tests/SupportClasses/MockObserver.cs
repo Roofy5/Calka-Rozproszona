@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Library.Observator;
-using Library.Connection;
+using Library;
 
 namespace Tests.SupportClasses
 {
