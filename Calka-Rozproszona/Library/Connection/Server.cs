@@ -9,16 +9,14 @@ using System.Threading;
 
 namespace Library
 {
-    public class Server : IObservable
+    public class Server : AMessage, IObservable
     {
-        private object locker = new object();
         private IPAddress host;
         private int port;
         private List<TcpClient> clients;
         private TcpListener server;
         private bool working;
         private List<IObserver> observers;
-        private string message;
 
         public IPAddress Host
         {
@@ -35,10 +33,6 @@ namespace Library
         public TcpListener ThisServer
         {
             get { return server; }
-        }
-        public string Message
-        {
-            get { return message; }
         }
 
 
@@ -64,7 +58,7 @@ namespace Library
         public void UpdateObservers()
         {
             foreach (var observer in observers)
-                observer.Update(this);
+                observer.Update(this.message);
         }
 
         /// <exception cref="Exception"></exception>
@@ -136,24 +130,16 @@ namespace Library
         private void ClientService(object _client)
         {
             TcpClient client = (TcpClient)_client;
-            SetMessage("Dodano klienta: " + client.Client.RemoteEndPoint.ToString());
+            SetMessage("#Dodano klienta: " + client.Client.RemoteEndPoint.ToString());
 
             while (true) { }
             // Operacje na kliencie
         }
 
-        private void SetMessage(string messag)
+        protected override void SetMessage(string messag)
         {
-            lock (locker)
-            {
-                //string newMessage = "[" + Thread.CurrentThread.ManagedThreadId + "] " + messag;
-                //message = newMessage;
-
-                string newMessage = Thread.CurrentThread.ManagedThreadId + "@" + DateTime.Now.ToString("HH:mm:ss.ffff") + "@" + messag;
-                message = newMessage;
-
-                UpdateObservers();
-            }
+            base.SetMessage(messag);
+            UpdateObservers();
         }
     }
 }

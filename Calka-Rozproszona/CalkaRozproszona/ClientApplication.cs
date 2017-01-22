@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 using Library;
 using System.Net;
@@ -15,19 +14,18 @@ using CalkaRozproszona.Classes;
 
 namespace CalkaRozproszona
 {
-    public partial class ServerApplication : Form
+    public partial class ClientApplication : Form
     {
-        Server server;
+        Client client;
         ListObservator listObservator;
-        ListObservator connectedClientsObservator;
 
-        public ServerApplication()
+        public ClientApplication()
         {
             InitializeComponent();
             PoolOfThreads.Instance.MaxThreads = 10;
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private void btnConnect_Click(object sender, EventArgs e)
         {
             IPAddress address;
             try
@@ -51,28 +49,20 @@ namespace CalkaRozproszona
                 return;
             }
 
-            server = new Server(address, port);
+            client = new Client(address, port);
 
-            SetUpObservers();
-           
-            server.StartServer();
+            listObservator = new ConcreteListServerInformations(listOfInformations);
+            client.AddObserver(listObservator);
+
+            client.Connect();
         }
 
         private void AddInformation(string message)
         {
             string currentThread = System.Threading.Thread.CurrentThread.ManagedThreadId.ToString();
-            ListViewItem item = new ListViewItem(new[] {currentThread, DateTime.Now.ToString("HH:mm:ss.ffff"), message });
+            ListViewItem item = new ListViewItem(new[] { currentThread, DateTime.Now.ToString("HH:mm:ss.ffff"), message });
             listOfInformations.Items.Add(item);
             listOfInformations.EnsureVisible(listOfInformations.Items.Count - 1);
-        }
-
-        private void SetUpObservers()
-        {
-            listObservator = new ConcreteListServerInformations(listOfInformations);
-            connectedClientsObservator = new ConcreteListConnectedClients(listConnectedClients);
-
-            server.AddObserver(listObservator);
-            server.AddObserver(connectedClientsObservator);
         }
     }
 }

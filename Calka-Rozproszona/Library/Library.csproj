@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection\AMessage.cs" />
+    <Compile Include="Connection\Client.cs" />
     <Compile Include="Connection\Server.cs" />
     <Compile Include="Observator\IObservable.cs" />
     <Compile Include="Observator\IObserver.cs" />

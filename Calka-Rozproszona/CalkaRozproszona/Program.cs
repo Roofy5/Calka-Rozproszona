@@ -16,7 +16,7 @@ namespace CalkaRozproszona
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ServerApplication());
+            Application.Run(new SelectMenu());
         }
     }
 }
