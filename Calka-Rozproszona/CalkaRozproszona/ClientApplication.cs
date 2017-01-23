@@ -18,11 +18,11 @@ namespace CalkaRozproszona
     {
         Client client;
         ListObservator listObservator;
+        int numberOfSharedThreads = 2;
 
         public ClientApplication()
         {
             InitializeComponent();
-            PoolOfThreads.Instance.MaxThreads = 10;
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -49,6 +49,18 @@ namespace CalkaRozproszona
                 return;
             }
 
+            try
+            {
+                numberOfSharedThreads = (int)numericThreads.Value;
+            }
+            catch (Exception)
+            {
+                AddInformation("Podaj poprawną ilość wątków.");
+                return;
+            }
+
+            PoolOfThreads.Instance.MaxThreads = numberOfSharedThreads+1;
+
             client = new Client(address, port);
 
             listObservator = new ConcreteListServerInformations(listOfInformations);
@@ -63,6 +75,16 @@ namespace CalkaRozproszona
             ListViewItem item = new ListViewItem(new[] { currentThread, DateTime.Now.ToString("HH:mm:ss.ffff"), message });
             listOfInformations.Items.Add(item);
             listOfInformations.EnsureVisible(listOfInformations.Items.Count - 1);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            client.SendCommand(Library.CommandType.READY, numberOfSharedThreads);
+        }
+
+        private void ClientApplication_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //client.Server.Close();
         }
     }
 }

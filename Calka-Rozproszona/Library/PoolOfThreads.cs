@@ -46,6 +46,20 @@ namespace Library
                 throw new Exception("No free threads...");
         }
 
+        public int AvailableThreads()
+        {
+            return maxThreads - listOfThreads.Count;
+        }
+
+        public void ExitThreads()
+        {
+            /*foreach (Thread th in listOfThreads)
+                th.Abort();*/
+
+            for (int i = listOfThreads.Count - 1; i >= 0; i--)
+                listOfThreads[i].Abort();
+        }
+
         private void FreeThreads()
         {
             /*var freeThreads = listOfThreads.Select(thread => thread.ThreadState == ThreadState.Stopped) as List<Thread>;

@@ -39,9 +39,13 @@
             this.Thread = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Times = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Message = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label3 = new System.Windows.Forms.Label();
+            this.numericThreads = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPort)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericThreads)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -49,8 +53,10 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.btnConnect);
+            this.groupBox1.Controls.Add(this.numericThreads);
             this.groupBox1.Controls.Add(this.numericPort);
             this.groupBox1.Controls.Add(this.txtAddress);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(8, 12);
@@ -83,6 +89,11 @@
             this.numericPort.Name = "numericPort";
             this.numericPort.Size = new System.Drawing.Size(78, 20);
             this.numericPort.TabIndex = 3;
+            this.numericPort.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             // 
             // txtAddress
             // 
@@ -90,6 +101,7 @@
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(268, 20);
             this.txtAddress.TabIndex = 1;
+            this.txtAddress.Text = "127.0.0.1";
             // 
             // label2
             // 
@@ -154,19 +166,59 @@
             this.Message.Text = "Wiadomość";
             this.Message.Width = 405;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(235, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(184, 16);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Ilość udostępnianych wątków:";
+            // 
+            // numericThreads
+            // 
+            this.numericThreads.Location = new System.Drawing.Point(425, 52);
+            this.numericThreads.Maximum = new decimal(new int[] {
+            65000,
+            0,
+            0,
+            0});
+            this.numericThreads.Name = "numericThreads";
+            this.numericThreads.Size = new System.Drawing.Size(78, 20);
+            this.numericThreads.TabIndex = 3;
+            this.numericThreads.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(72, 167);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ClientApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 439);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "ClientApplication";
             this.Text = "Client";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientApplication_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPort)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericThreads)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -184,5 +236,8 @@
         private System.Windows.Forms.ColumnHeader Thread;
         private System.Windows.Forms.ColumnHeader Times;
         private System.Windows.Forms.ColumnHeader Message;
+        private System.Windows.Forms.NumericUpDown numericThreads;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }

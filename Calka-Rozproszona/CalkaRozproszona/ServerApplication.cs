@@ -21,10 +21,14 @@ namespace CalkaRozproszona
         ListObservator listObservator;
         ListObservator connectedClientsObservator;
 
+        double lowerBound = 0;
+        double upperBound = 0;
+        double accuracy = 0.001;
+
         public ServerApplication()
         {
             InitializeComponent();
-            PoolOfThreads.Instance.MaxThreads = 10;
+            SetUpMathematicalFunctions();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -51,6 +55,19 @@ namespace CalkaRozproszona
                 return;
             }
 
+            int maxKlientow = 10;
+            try
+            {
+                maxKlientow = (int)numericClients.Value;
+            }
+            catch (Exception)
+            {
+                AddInformation("Podaj poprawna ilosc klientow.");
+                return;
+            }
+
+            PoolOfThreads.Instance.MaxThreads = maxKlientow + 1;
+
             server = new Server(address, port);
 
             SetUpObservers();
@@ -73,6 +90,40 @@ namespace CalkaRozproszona
 
             server.AddObserver(listObservator);
             server.AddObserver(connectedClientsObservator);
+        }
+
+        private void SetUpMathematicalFunctions()
+        {
+            comboFunction.Items.Add(new SinFunction());
+            comboFunction.Items.Add(new CosFunction());
+        }
+
+        private void btnStartCalculations_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                upperBound = double.Parse(txtTo.Text, System.Globalization.CultureInfo.InvariantCulture);
+                lowerBound = double.Parse(txtFrom.Text, System.Globalization.CultureInfo.InvariantCulture);
+                accuracy = double.Parse(txtAccuracy.Text, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            catch (Exception exc)
+            {
+                AddInformation(exc.Message);
+                return;
+            }
+        }
+
+        private void ServerApplication_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            /*if (server.Clients != null && server.Clients.Count != 0)
+            {
+                foreach (var client in server.Clients)
+                {
+                    client.Client.Close();
+                }
+            }
+
+            PoolOfThreads.Instance.ExitThreads();*/
         }
     }
 }

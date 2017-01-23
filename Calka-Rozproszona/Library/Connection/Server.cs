@@ -9,11 +9,11 @@ using System.Threading;
 
 namespace Library
 {
-    public class Server : AMessage, IObservable
+    public class Server : AMessage, IObservable, ICommand
     {
         private IPAddress host;
         private int port;
-        private List<TcpClient> clients;
+        private List<ConnectedClient> clients;
         private TcpListener server;
         private bool working;
         private List<IObserver> observers;
@@ -26,7 +26,7 @@ namespace Library
         {
             get { return port; }
         }
-        public List<TcpClient> Clients
+        public List<ConnectedClient> Clients
         {
             get { return clients; }
         }
@@ -40,7 +40,7 @@ namespace Library
         {
             this.host = host;
             this.port = port;
-            clients = new List<TcpClient>();
+            clients = new List<ConnectedClient>();
             working = true;
             observers = new List<IObserver>();
         }
@@ -58,7 +58,54 @@ namespace Library
         public void UpdateObservers()
         {
             foreach (var observer in observers)
-                observer.Update(this.message);
+                observer.Update(this);
+        }
+
+        public void SendCommand(CommandType type, params object[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReceiveCommand(object client)
+        {
+            TcpClient _client = client as TcpClient;
+            try
+            {
+                using (NetworkStream stream = _client.GetStream())
+                {
+                    while (!stream.DataAvailable)
+                        continue;
+                    byte[] data = new byte[Configuration.NUMBER_OF_BYTES];
+                    stream.Read(data, 0, data.Length);
+
+                    string receivedMessage = System.Text.Encoding.ASCII.GetString(data, 0, data.Length);
+
+                    char separator = char.Parse(Configuration.COMMAND_SEPARATOR);
+                    string[] dane = receivedMessage.Split(separator);
+                    CommandType type = (CommandType)int.Parse(dane[0]);
+
+                    ExecuteOperation(type, receivedMessage, _client);
+
+                    SetMessage("Odczytalem dane: " + type.ToString());
+                }
+            }
+            catch (Exception exc)
+            {
+                SetMessage("!!! Błąd przy odczycie: " + exc.Message);
+            }
+        }
+
+        private void ExecuteOperation(CommandType type, string receivedMessage, TcpClient _client)
+        {
+            switch (type)
+            {
+                case CommandType.READY:
+                    {
+                        int declaredThreads = int.Parse(receivedMessage.Split(char.Parse(Configuration.COMMAND_SEPARATOR))[1]);
+                        clients.Select(c => c).Where(c => c.Client == _client).ToArray()[0].DeclaredThreads = declaredThreads;
+                        break;
+                    }
+            }
         }
 
         /// <exception cref="Exception"></exception>
@@ -109,31 +156,47 @@ namespace Library
 
         private void Listen(object ob)
         {
+            TcpClient client = null;
             try
             {
                 while (working)
                 {
+                    /*if (PoolOfThreads.Instance.AvailableThreads() <= 0)
+                    {
+                        working = false;
+                        break;
+                    }*/
                     SetMessage("Czekam na nowego klienta...");
-                    TcpClient client = server.AcceptTcpClient();
+                    client = server.AcceptTcpClient();
                     SetMessage("Nowy klient probuje sie polaczyc...");
                     PoolOfThreads.Instance.NewThread(ClientService).Start(client);
-                    clients.Add(client);
+                    clients.Add(new ConnectedClient(client));
                 }
             }
             catch (Exception exc)
             {
                 SetMessage("!!! Nie moge utworzyc watku klienta: " + exc.Message);
+                if (client != null)
+                    client.Close();
                 //throw;
+            }
+            finally
+            {
+                server.Server.Close();
+                SetMessage("Osiągnięto max ilość klientów");
             }
         }
 
         private void ClientService(object _client)
         {
             TcpClient client = (TcpClient)_client;
-            SetMessage("#Dodano klienta: " + client.Client.RemoteEndPoint.ToString());
+            SetMessage("Dodano klienta: " + client.Client.RemoteEndPoint.ToString());
+
 
             while (true) { }
+           // ReceiveCommand(_client);
             // Operacje na kliencie
+            //TODO
         }
 
         protected override void SetMessage(string messag)

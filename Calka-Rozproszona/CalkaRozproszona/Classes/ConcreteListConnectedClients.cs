@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Library;
+
 namespace CalkaRozproszona.Classes
 {
     class ConcreteListConnectedClients : ListObservator
@@ -13,14 +15,17 @@ namespace CalkaRozproszona.Classes
         {
         }
 
-        protected override void ListUpdate(string message)
+        protected override void ListUpdate(object server)
         {
-            // TODO naprawic
-            if (message.StartsWith("#"))
+            try
             {
-                listView.Items.Add(message);
-                listView.EnsureVisible(listView.Items.Count - 1);
+                Server serv = server as Server;
+                listView.Items.Clear();
+                foreach (var client in serv.Clients)
+                    listView.Items.Add(client.Client.Client.RemoteEndPoint.ToString());
             }
+            catch (Exception)
+            { }
         }
     }
 }

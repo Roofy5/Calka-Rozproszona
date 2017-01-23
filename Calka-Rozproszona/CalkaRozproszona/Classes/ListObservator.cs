@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Library;
+
 namespace CalkaRozproszona.Classes
 {
     abstract class ListObservator : Library.IObserver
     {
         protected ListView listView;
-        protected abstract void ListUpdate(string message);
+        protected abstract void ListUpdate(object server);
 
         public ListObservator(ListView list)
         {
@@ -19,7 +21,8 @@ namespace CalkaRozproszona.Classes
 
         public void Update(object ob)
         {
-            string message = ob as string;
+            var received = ob as AMessage;
+            //string message = server.Message;
             /*listView.Invoke(new Action(
                 delegate ()
                 {
@@ -28,8 +31,8 @@ namespace CalkaRozproszona.Classes
                     listView.Items.Add(item);
                     listView.EnsureVisible(listView.Items.Count - 1);
                 }));*/
-            Action<string> function = ListUpdate;
-            listView.Invoke(function, new string[]{ message });
+            Action<AMessage> function = ListUpdate;
+            listView.Invoke(function, new AMessage[]{ received });
         }
     }
 }

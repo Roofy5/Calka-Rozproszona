@@ -42,16 +42,30 @@
             this.Message = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listConnectedClients = new System.Windows.Forms.ListView();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numericClients = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtFrom = new System.Windows.Forms.TextBox();
+            this.txtTo = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnStartCalculations = new System.Windows.Forms.Button();
+            this.txtAccuracy = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboFunction = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPort)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericClients)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.numericClients);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.Controls.Add(this.numericPort);
@@ -99,6 +113,11 @@
             this.numericPort.Name = "numericPort";
             this.numericPort.Size = new System.Drawing.Size(78, 20);
             this.numericPort.TabIndex = 3;
+            this.numericPort.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             // 
             // txtAddress
             // 
@@ -106,6 +125,7 @@
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(268, 20);
             this.txtAddress.TabIndex = 1;
+            this.txtAddress.Text = "127.0.0.1";
             // 
             // label2
             // 
@@ -129,7 +149,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.listOfInformations);
             this.groupBox2.Location = new System.Drawing.Point(12, 276);
@@ -172,6 +193,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.listConnectedClients);
             this.groupBox3.Location = new System.Drawing.Point(321, 130);
             this.groupBox3.Name = "groupBox3";
@@ -187,22 +209,148 @@
             this.listConnectedClients.Size = new System.Drawing.Size(187, 120);
             this.listConnectedClients.TabIndex = 0;
             this.listConnectedClients.UseCompatibleStateImageBehavior = false;
+            this.listConnectedClients.View = System.Windows.Forms.View.List;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.comboFunction);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.btnStartCalculations);
+            this.groupBox4.Controls.Add(this.txtTo);
+            this.groupBox4.Controls.Add(this.txtAccuracy);
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.txtFrom);
+            this.groupBox4.Location = new System.Drawing.Point(12, 130);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(310, 148);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Funkcja";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(6, 20);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 16);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Funkcja:";
+            // 
+            // numericClients
+            // 
+            this.numericClients.Location = new System.Drawing.Point(425, 49);
+            this.numericClients.Maximum = new decimal(new int[] {
+            65000,
+            0,
+            0,
+            0});
+            this.numericClients.Name = "numericClients";
+            this.numericClients.Size = new System.Drawing.Size(78, 20);
+            this.numericClients.TabIndex = 3;
+            this.numericClients.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(6, 45);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 16);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Od:";
+            // 
+            // txtFrom
+            // 
+            this.txtFrom.Location = new System.Drawing.Point(41, 44);
+            this.txtFrom.Name = "txtFrom";
+            this.txtFrom.Size = new System.Drawing.Size(44, 20);
+            this.txtFrom.TabIndex = 1;
+            // 
+            // txtTo
+            // 
+            this.txtTo.Location = new System.Drawing.Point(126, 44);
+            this.txtTo.Name = "txtTo";
+            this.txtTo.Size = new System.Drawing.Size(44, 20);
+            this.txtTo.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.Location = new System.Drawing.Point(91, 45);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 16);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Do:";
+            // 
+            // btnStartCalculations
+            // 
+            this.btnStartCalculations.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnStartCalculations.ForeColor = System.Drawing.Color.Green;
+            this.btnStartCalculations.Location = new System.Drawing.Point(9, 94);
+            this.btnStartCalculations.Name = "btnStartCalculations";
+            this.btnStartCalculations.Size = new System.Drawing.Size(76, 31);
+            this.btnStartCalculations.TabIndex = 4;
+            this.btnStartCalculations.Text = "Start";
+            this.btnStartCalculations.UseVisualStyleBackColor = true;
+            this.btnStartCalculations.Click += new System.EventHandler(this.btnStartCalculations_Click);
+            // 
+            // txtAccuracy
+            // 
+            this.txtAccuracy.Location = new System.Drawing.Point(94, 68);
+            this.txtAccuracy.Name = "txtAccuracy";
+            this.txtAccuracy.Size = new System.Drawing.Size(76, 20);
+            this.txtAccuracy.TabIndex = 1;
+            this.txtAccuracy.Text = "0,001";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label6.Location = new System.Drawing.Point(6, 69);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 16);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Dokładność:";
+            // 
+            // comboFunction
+            // 
+            this.comboFunction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboFunction.FormattingEnabled = true;
+            this.comboFunction.Location = new System.Drawing.Point(70, 17);
+            this.comboFunction.Name = "comboFunction";
+            this.comboFunction.Size = new System.Drawing.Size(100, 21);
+            this.comboFunction.TabIndex = 5;
             // 
             // ServerApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 439);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "ServerApplication";
             this.Text = "Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ServerApplication_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPort)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericClients)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -223,6 +371,17 @@
         private System.Windows.Forms.ColumnHeader Times;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListView listConnectedClients;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numericClients;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnStartCalculations;
+        private System.Windows.Forms.TextBox txtTo;
+        private System.Windows.Forms.TextBox txtFrom;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtAccuracy;
+        private System.Windows.Forms.ComboBox comboFunction;
     }
 }
 

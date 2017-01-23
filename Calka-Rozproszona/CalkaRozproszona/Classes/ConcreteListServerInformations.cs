@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Library;
+
 namespace CalkaRozproszona.Classes
 {
     class ConcreteListServerInformations : ListObservator
@@ -12,11 +14,17 @@ namespace CalkaRozproszona.Classes
         public ConcreteListServerInformations(ListView list) : base(list)
         {}
 
-        protected override void ListUpdate(string message)
+        protected override void ListUpdate(object message)
         {
-            ListViewItem item = new ListViewItem(message.Split('@'));
-            listView.Items.Add(item);
-            listView.EnsureVisible(listView.Items.Count - 1);
+            try
+            {
+                string _message = (message as AMessage).Message;
+                ListViewItem item = new ListViewItem(_message.Split('@'));
+                listView.Items.Add(item);
+                listView.EnsureVisible(listView.Items.Count - 1);
+            }
+            catch (Exception)
+            { }
         }
     }
 }
