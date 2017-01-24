@@ -48,6 +48,11 @@
     <Compile Include="Connection\ConnectedClient.cs" />
     <Compile Include="Connection\SenderReceiverAdapter.cs" />
     <Compile Include="Connection\Server.cs" />
+    <Compile Include="MathematicalCalculations.cs" />
+    <Compile Include="MathematicalFunctions\CosFunction.cs" />
+    <Compile Include="MathematicalFunctions\FunctionsFactory.cs" />
+    <Compile Include="MathematicalFunctions\IFunction.cs" />
+    <Compile Include="MathematicalFunctions\SinFunction.cs" />
     <Compile Include="Observator\IObservable.cs" />
     <Compile Include="Observator\IObserver.cs" />
     <Compile Include="PoolOfThreads.cs" />

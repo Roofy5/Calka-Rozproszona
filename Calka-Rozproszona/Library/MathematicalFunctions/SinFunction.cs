@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalkaRozproszona.Classes
+namespace Library
 {
-    class SinFunction : IFunction
+    public class SinFunction : IFunction
     {
         public double function(double x)
         {

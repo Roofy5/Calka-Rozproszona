@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalkaRozproszona.Classes
+namespace Library
 {
-    interface IFunction
+    public interface IFunction
     {
         double function(double x);
     }

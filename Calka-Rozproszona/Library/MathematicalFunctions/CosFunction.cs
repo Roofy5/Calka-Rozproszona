@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalkaRozproszona.Classes
+namespace Library
 {
-    class CosFunction : IFunction
+    public class CosFunction : IFunction
     {
         public double function(double x)
         {

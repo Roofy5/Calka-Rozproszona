@@ -107,8 +107,15 @@ namespace Library
                         clients.Select(c => c).Where(c => c.Client == _client).ToArray()[0].DeclaredThreads = declaredThreads;
                         break;
                     }
+                case CommandType.RESULT:
+                    {
+                        double result = double.Parse(receivedValues[0]);
+                        clients.Select(c => c).Where(c => c.Client == _client).ToArray()[0].ReturnedResult = result;
+                        clients.Select(c => c).Where(c => c.Client == _client).ToArray()[0].Finished = true;
+                        break;
+                    }
             }
-            UpdateObservers();
+            UpdateObservers(); // <<<<<<<<========
         }
 
         /// <exception cref="Exception"></exception>

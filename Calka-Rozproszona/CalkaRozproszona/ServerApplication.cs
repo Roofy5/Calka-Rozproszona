@@ -20,6 +20,7 @@ namespace CalkaRozproszona
         Server server;
         ListObservator listObservator;
         ListObservator connectedClientsObservator;
+        ListObservator resultObservator;
 
         double lowerBound = 0;
         double upperBound = 0;
@@ -66,6 +67,8 @@ namespace CalkaRozproszona
                 return;
             }
 
+            btnStart.Enabled = false;
+
             PoolOfThreads.Instance.MaxThreads = maxKlientow + 1;
 
             server = new Server(address, port);
@@ -87,15 +90,18 @@ namespace CalkaRozproszona
         {
             listObservator = new ConcreteListServerInformations(listOfInformations);
             connectedClientsObservator = new ConcreteListConnectedClients(listConnectedClients);
+            resultObservator = new ConcreteListCheckIfFinished(listResult);
 
             server.AddObserver(listObservator);
             server.AddObserver(connectedClientsObservator);
+            server.AddObserver(resultObservator);
         }
 
         private void SetUpMathematicalFunctions()
         {
             comboFunction.Items.Add(new SinFunction());
             comboFunction.Items.Add(new CosFunction());
+            comboFunction.SelectedItem = comboFunction.Items[0];
         }
 
         private void btnStartCalculations_Click(object sender, EventArgs e)
@@ -126,6 +132,9 @@ namespace CalkaRozproszona
             }
 
             PoolOfThreads.Instance.ExitThreads();*/
+
+            if(server!=null)
+                server.StopServer();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -135,6 +144,11 @@ namespace CalkaRozproszona
 
         private void SendSettingsToClients()
         {
+            // TODO
+            //System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+            //timer.Start();
+            RemoveNotConnectedClients();
+
             int totalNumberOfThreads = server.TotalNumberOfThreads();
 
             double section = (upperBound - lowerBound) / totalNumberOfThreads;
@@ -142,8 +156,21 @@ namespace CalkaRozproszona
             txtNumberOfThreads.Text = totalNumberOfThreads.ToString();
             txtSection.Text = section.ToString();
 
+            double clientLowerBound = lowerBound;
+            double clientUpperBound = lowerBound;
 
+            foreach (var client in server.Clients)
+            {
+                clientUpperBound += section * client.DeclaredThreads;
+                server.SendCommand(client.Stream, Library.CommandType.FUNCTION, comboFunction.SelectedItem.ToString()); // new SinFunction()
+                server.SendCommand(client.Stream, Library.CommandType.SECTION, clientLowerBound, clientUpperBound, accuracy);
+                clientLowerBound = clientUpperBound;
+            }
+        }
 
+        private void RemoveNotConnectedClients()
+        {
+            server.Clients.RemoveAll(client => client.Client.Connected == false);
         }
     }
 }

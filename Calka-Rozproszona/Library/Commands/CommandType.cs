@@ -9,6 +9,9 @@ namespace Library
     public enum CommandType
     {
         READY = 0,
-        STOP = 1
+        STOP = 1,
+        FUNCTION = 2,
+        SECTION = 3,
+        RESULT = 4
     }
 }

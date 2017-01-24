@@ -65,11 +65,13 @@ namespace Library
             string[] allData = receivedData.Split(separator);
             CommandType commandType = (CommandType)int.Parse(allData[0]);
 
-            string[] onlyData = new string[allData.Length - 1];
+            /*string[] onlyData = new string[allData.Length - 1];
             for (int i = 1; i < allData.Length; i++)
                 onlyData[i-1] = allData[i];
+            */
+            data = allData[1].Split(char.Parse(Configuration.PACKETS_DATA_SEPARATOR));
 
-            data = onlyData;
+            //data = onlyData;
             type = commandType;
         }
     }

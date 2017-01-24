@@ -34,6 +34,7 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.numericPort = new System.Windows.Forms.NumericUpDown();
             this.txtAddress = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -53,12 +54,15 @@
             this.txtAccuracy = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtFrom = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtNumberOfThreads = new System.Windows.Forms.TextBox();
+            this.lblTime = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtSection = new System.Windows.Forms.TextBox();
-            this.txtNumberOfThreads = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.listResult = new System.Windows.Forms.ListView();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericClients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPort)).BeginInit();
@@ -157,6 +161,16 @@
             this.txtAddress.Size = new System.Drawing.Size(268, 20);
             this.txtAddress.TabIndex = 1;
             this.txtAddress.Text = "127.0.0.1";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(301, 49);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(118, 16);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Max ilość klientów:";
             // 
             // label2
             // 
@@ -324,7 +338,7 @@
             this.txtAccuracy.Name = "txtAccuracy";
             this.txtAccuracy.Size = new System.Drawing.Size(76, 20);
             this.txtAccuracy.TabIndex = 1;
-            this.txtAccuracy.Text = "0,001";
+            this.txtAccuracy.Text = "0.001";
             // 
             // label3
             // 
@@ -343,22 +357,16 @@
             this.txtFrom.Size = new System.Drawing.Size(44, 20);
             this.txtFrom.TabIndex = 1;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(301, 49);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(118, 16);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Max ilość klientów:";
-            // 
             // groupBox5
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.listResult);
             this.groupBox5.Controls.Add(this.label9);
             this.groupBox5.Controls.Add(this.txtNumberOfThreads);
+            this.groupBox5.Controls.Add(this.lblTime);
+            this.groupBox5.Controls.Add(this.label11);
+            this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.label8);
             this.groupBox5.Controls.Add(this.txtSection);
             this.groupBox5.Location = new System.Drawing.Point(196, 130);
@@ -367,6 +375,46 @@
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Obliczenia...";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label9.Location = new System.Drawing.Point(7, 20);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(83, 16);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Ilość wątków";
+            // 
+            // txtNumberOfThreads
+            // 
+            this.txtNumberOfThreads.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNumberOfThreads.Enabled = false;
+            this.txtNumberOfThreads.Location = new System.Drawing.Point(135, 19);
+            this.txtNumberOfThreads.Name = "txtNumberOfThreads";
+            this.txtNumberOfThreads.Size = new System.Drawing.Size(67, 20);
+            this.txtNumberOfThreads.TabIndex = 1;
+            // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblTime.Location = new System.Drawing.Point(75, 69);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(15, 16);
+            this.lblTime.TabIndex = 0;
+            this.lblTime.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label10.Location = new System.Drawing.Point(7, 69);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(70, 16);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Czas[ms]: ";
             // 
             // label8
             // 
@@ -388,25 +436,26 @@
             this.txtSection.Size = new System.Drawing.Size(67, 20);
             this.txtSection.TabIndex = 1;
             // 
-            // txtNumberOfThreads
+            // listResult
             // 
-            this.txtNumberOfThreads.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumberOfThreads.Enabled = false;
-            this.txtNumberOfThreads.Location = new System.Drawing.Point(135, 19);
-            this.txtNumberOfThreads.Name = "txtNumberOfThreads";
-            this.txtNumberOfThreads.Size = new System.Drawing.Size(67, 20);
-            this.txtNumberOfThreads.TabIndex = 1;
+            this.listResult.Enabled = false;
+            this.listResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listResult.Location = new System.Drawing.Point(61, 94);
+            this.listResult.Name = "listResult";
+            this.listResult.Size = new System.Drawing.Size(133, 22);
+            this.listResult.TabIndex = 0;
+            this.listResult.UseCompatibleStateImageBehavior = false;
+            this.listResult.View = System.Windows.Forms.View.List;
             // 
-            // label9
+            // label11
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(7, 20);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(83, 16);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Ilość wątków";
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label11.Location = new System.Drawing.Point(7, 94);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(48, 16);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Wynik:";
             // 
             // ServerApplication
             // 
@@ -468,6 +517,10 @@
         private System.Windows.Forms.TextBox txtNumberOfThreads;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtSection;
+        private System.Windows.Forms.Label lblTime;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ListView listResult;
+        private System.Windows.Forms.Label label11;
     }
 }
 

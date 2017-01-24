@@ -25,13 +25,18 @@ namespace Library
         {
             get; set;
         }
+        public bool Finished
+        {
+            get; set;
+        }
 
-        public ConnectedClient(TcpClient client, int declaredThreads = 0, double returnedResult = 0, NetworkStream stream = null)
+        public ConnectedClient(TcpClient client, int declaredThreads = 0, double returnedResult = 0, NetworkStream stream = null, bool finished = false)
         {
             Client = client;
             DeclaredThreads = declaredThreads;
             ReturnedResult = returnedResult;
             Stream = stream;
+            Finished = finished;
         }
     }
 }

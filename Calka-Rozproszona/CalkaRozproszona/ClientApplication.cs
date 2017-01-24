@@ -62,11 +62,14 @@ namespace CalkaRozproszona
             PoolOfThreads.Instance.MaxThreads = numberOfSharedThreads+1;
 
             client = new Client(address, port);
-
+            
             listObservator = new ConcreteListServerInformations(listOfInformations);
             client.AddObserver(listObservator);
 
             client.Connect();
+
+            if(client.Server.Connected)
+                btnConnect.Enabled = false;
         }
 
         private void AddInformation(string message)
@@ -79,12 +82,14 @@ namespace CalkaRozproszona
 
         private void button1_Click(object sender, EventArgs e)
         {
+            client.DeclaredThreads = numberOfSharedThreads;
             client.SendCommand(null, Library.CommandType.READY, numberOfSharedThreads);
         }
 
         private void ClientApplication_FormClosing(object sender, FormClosingEventArgs e)
         {
             //client.Server.Close();
+            client.Finish();
         }
     }
 }

@@ -61,12 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ConcreteListCheckIfFinished.cs" />
     <Compile Include="Classes\ConcreteListConnectedClients.cs" />
     <Compile Include="Classes\ConcreteListServerInformations.cs" />
     <Compile Include="Classes\ListObservator.cs" />
-    <Compile Include="Classes\MathematicalFunctions\CosFunction.cs" />
-    <Compile Include="Classes\MathematicalFunctions\IFunction.cs" />
-    <Compile Include="Classes\MathematicalFunctions\SinFunction.cs" />
     <Compile Include="ClientApplication.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -16,13 +16,19 @@ namespace Library
         private int serverPort;
         private List<IObserver> observers;
         private bool working;
-        private int declaredThreads = 1;
+        private int declaredThreads;
         private NetworkStream stream;
         private SenderReceiverAdapter senderReceiver;
+        private MathematicalCalculations mathematic;
 
         public TcpClient Server
         {
             get { return client; }
+        }
+        public int DeclaredThreads
+        {
+            get { return declaredThreads; }
+            set { declaredThreads = value; }
         }
 
         public Client(IPAddress address, int port)
@@ -31,7 +37,9 @@ namespace Library
             serverPort = port;
             observers = new List<IObserver>();
             working = true;
+            declaredThreads = 1;
             senderReceiver = new SenderReceiverAdapter();
+            mathematic = new MathematicalCalculations();
         }
 
         public void AddObserver(IObserver observer)
@@ -98,6 +106,21 @@ namespace Library
                         Finish();
                         break;
                     }
+                case CommandType.FUNCTION:
+                    {
+                        mathematic.Function = FunctionsFactory.GetFunction(receivedValues[0]);
+                        break;
+                    }
+                case CommandType.SECTION:
+                    {
+                        mathematic.NumberOfThreads = declaredThreads;
+                        mathematic.LowerBound = double.Parse(receivedValues[0]);
+                        mathematic.UpperBound = double.Parse(receivedValues[1]);
+                        mathematic.Accuracy = double.Parse(receivedValues[2]);
+                        double result = mathematic.Calculate();
+                        SendCommand(null, CommandType.RESULT, result);
+                        break;
+                    }
             }
         }
 
@@ -124,10 +147,12 @@ namespace Library
             SetMessage("Kończę pracę");
             observers.Clear();
             working = false;
-            PoolOfThreads.Instance.ExitThreads();
-            client.Close();
-            stream.Close();
             //PoolOfThreads.Instance.ExitThreads();
+            if(client != null)
+                client.Close();
+            if (stream != null)
+                stream.Close();
+            PoolOfThreads.Instance.ExitThreads();
         }
 
         protected override void SetMessage(string messag)
