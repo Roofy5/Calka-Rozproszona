@@ -8,7 +8,7 @@ namespace Library
 {
     public interface ICommand
     {
-        void SendCommand(CommandType type, params object[] parameters);
-        void ReceiveCommand(object client);
+        string SendCommand(object streamToSend, CommandType type, params object[] parameters);
+        string ReceiveCommand(object client);
     }
 }

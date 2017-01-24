@@ -19,9 +19,12 @@ namespace CalkaRozproszona.Classes
             try
             {
                 string _message = (message as AMessage).Message;
+                if (lastMessage.Equals(_message))
+                    return;
                 ListViewItem item = new ListViewItem(_message.Split('@'));
                 listView.Items.Add(item);
                 listView.EnsureVisible(listView.Items.Count - 1);
+                lastMessage = _message;
             }
             catch (Exception)
             { }

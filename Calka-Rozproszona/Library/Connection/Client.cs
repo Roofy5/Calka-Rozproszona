@@ -17,7 +17,8 @@ namespace Library
         private List<IObserver> observers;
         private bool working;
         private int declaredThreads = 1;
-        NetworkStream stream;
+        private NetworkStream stream;
+        private SenderReceiverAdapter senderReceiver;
 
         public TcpClient Server
         {
@@ -30,6 +31,7 @@ namespace Library
             serverPort = port;
             observers = new List<IObserver>();
             working = true;
+            senderReceiver = new SenderReceiverAdapter();
         }
 
         public void AddObserver(IObserver observer)
@@ -48,67 +50,52 @@ namespace Library
                 observer.Update(this);
         }
 
-        public void SendCommand(CommandType type, params object[] parameters)
+        public string SendCommand(object streamToSend, CommandType type, params object[] parameters)
         {
-            string parametersToSend = "";
-            foreach (var parameter in parameters)
-                parametersToSend += parameter.ToString() + Configuration.PACKETS_DATA_SEPARATOR;
-
-            parametersToSend = parametersToSend.Substring(0, parametersToSend.Length - 1);
-            string message = (int)type + Configuration.COMMAND_SEPARATOR + parametersToSend;
-
             try
             {
-                byte[] data = new byte[Configuration.NUMBER_OF_BYTES];
-                System.Text.Encoding.ASCII.GetBytes(message).CopyTo(data, 0);
-
-                //using (NetworkStream stream = client.GetStream())
-                {
-                    stream.Write(data, 0, data.Length);
-                    stream.Flush();
-                }
-                
+                string message = senderReceiver.SendCommand(stream, type, parameters);
+                SetMessage("Wysałełm dane: " + message);
             }
             catch (Exception exc)
             {
                 SetMessage("!!! Błąd wysyłania: " + exc.Message);
-                return;
             }
+
+            return "";
         }
 
-        public void ReceiveCommand(object client)
+        public string ReceiveCommand(object client)
         {
-            TcpClient _client = client as TcpClient;
             try
             {
-                //using (NetworkStream stream = _client.GetStream())
-                {
-                    if (!stream.DataAvailable)
-                        return;
-                    byte[] data = new byte[Configuration.NUMBER_OF_BYTES];
-                    stream.Read(data, 0, data.Length);
+                string receivedData = senderReceiver.ReceiveCommand(client);
 
-                    string receivedMessage = System.Text.Encoding.ASCII.GetString(data, 0, data.Length);
+                if (receivedData == null)
+                    return null;
 
-                    char separator = char.Parse(Configuration.COMMAND_SEPARATOR);
-                    string[] dane = receivedMessage.Split(separator);
-                    CommandType type = (CommandType)int.Parse(dane[0]);
-
-                    ExecuteOperation(type, receivedMessage, _client);
-                }
+                //ExecuteOperation(type, receivedMessage, _client); 
+                SetMessage("Odczytalem dane: " + receivedData);
+                return receivedData;
             }
             catch (Exception exc)
             {
                 SetMessage("!!! Błąd przy odczycie: " + exc.Message);
+                throw new Exception("Prawdopodobnie serewer zakończył działanie");
             }
         }
 
-        private void ExecuteOperation(CommandType type, string receivedMessage, TcpClient _client)
+        private void ExecuteOperation(CommandType type, string [] receivedValues, TcpClient _client)
         {
             switch (type)
             {
                 case CommandType.READY:
                     {
+                        break;
+                    }
+                case CommandType.STOP:
+                    {
+                        Finish();
                         break;
                     }
             }
@@ -132,6 +119,17 @@ namespace Library
             }
         }
 
+        public void Finish()
+        {
+            SetMessage("Kończę pracę");
+            observers.Clear();
+            working = false;
+            PoolOfThreads.Instance.ExitThreads();
+            client.Close();
+            stream.Close();
+            //PoolOfThreads.Instance.ExitThreads();
+        }
+
         protected override void SetMessage(string messag)
         {
             base.SetMessage(messag);
@@ -145,19 +143,16 @@ namespace Library
                 SetMessage("Nasłuchuję...");
                 while (working)
                 {
-                    //ReceiveCommand(client);
-                    //TODO
+                    string data = ReceiveCommand(stream);
+                    if (data == null)
+                        continue;
+
+                    CommandType command;
+                    string[] values;
+                    senderReceiver.DecomposeData(data, out command, out values);
+
+                    ExecuteOperation(command, values, client);
                 }
-                /*StreamReader reader = new StreamReader(client.GetStream());
-                string serverMessage = "";
-                while (!serverMessage.Equals("EXIT") && working)
-                {
-                    string newServerMessage = reader.ReadLine();
-                    if (!newServerMessage.Equals(serverMessage))
-                        SetMessage(newServerMessage);
-                    serverMessage = newServerMessage;
-                }
-                SetMessage("Serwer zakończył transmisję lub klient zakończył nasłuchiwanie.");*/
             }
             catch (Exception exc)
             {

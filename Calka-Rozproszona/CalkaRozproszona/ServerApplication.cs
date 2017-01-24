@@ -111,6 +111,8 @@ namespace CalkaRozproszona
                 AddInformation(exc.Message);
                 return;
             }
+
+            SendSettingsToClients();
         }
 
         private void ServerApplication_FormClosing(object sender, FormClosingEventArgs e)
@@ -124,6 +126,24 @@ namespace CalkaRozproszona
             }
 
             PoolOfThreads.Instance.ExitThreads();*/
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            server.StopServer();
+        }
+
+        private void SendSettingsToClients()
+        {
+            int totalNumberOfThreads = server.TotalNumberOfThreads();
+
+            double section = (upperBound - lowerBound) / totalNumberOfThreads;
+
+            txtNumberOfThreads.Text = totalNumberOfThreads.ToString();
+            txtSection.Text = section.ToString();
+
+
+
         }
     }
 }

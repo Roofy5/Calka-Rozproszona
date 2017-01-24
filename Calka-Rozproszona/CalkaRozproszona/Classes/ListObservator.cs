@@ -11,12 +11,14 @@ namespace CalkaRozproszona.Classes
 {
     abstract class ListObservator : Library.IObserver
     {
+        protected string lastMessage;
         protected ListView listView;
         protected abstract void ListUpdate(object server);
 
         public ListObservator(ListView list)
         {
             listView = list;
+            lastMessage = "";
         }
 
         public void Update(object ob)

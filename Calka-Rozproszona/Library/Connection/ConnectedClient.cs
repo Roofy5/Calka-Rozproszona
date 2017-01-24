@@ -21,12 +21,17 @@ namespace Library
         {
             get; set;
         }
+        public NetworkStream Stream
+        {
+            get; set;
+        }
 
-        public ConnectedClient(TcpClient client, int declaredThreads = 0, double returnedResult = 0)
+        public ConnectedClient(TcpClient client, int declaredThreads = 0, double returnedResult = 0, NetworkStream stream = null)
         {
             Client = client;
             DeclaredThreads = declaredThreads;
             ReturnedResult = returnedResult;
+            Stream = stream;
         }
     }
 }

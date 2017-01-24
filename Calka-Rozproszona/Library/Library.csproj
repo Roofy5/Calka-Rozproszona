@@ -46,6 +46,7 @@
     <Compile Include="Connection\AMessage.cs" />
     <Compile Include="Connection\Client.cs" />
     <Compile Include="Connection\ConnectedClient.cs" />
+    <Compile Include="Connection\SenderReceiverAdapter.cs" />
     <Compile Include="Connection\Server.cs" />
     <Compile Include="Observator\IObservable.cs" />
     <Compile Include="Observator\IObserver.cs" />

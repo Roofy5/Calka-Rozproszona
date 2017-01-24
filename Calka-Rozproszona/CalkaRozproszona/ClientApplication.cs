@@ -79,7 +79,7 @@ namespace CalkaRozproszona
 
         private void button1_Click(object sender, EventArgs e)
         {
-            client.SendCommand(Library.CommandType.READY, numberOfSharedThreads);
+            client.SendCommand(null, Library.CommandType.READY, numberOfSharedThreads);
         }
 
         private void ClientApplication_FormClosing(object sender, FormClosingEventArgs e)
