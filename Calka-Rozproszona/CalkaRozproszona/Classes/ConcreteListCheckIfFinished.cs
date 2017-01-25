@@ -37,7 +37,6 @@ namespace CalkaRozproszona.Classes
                     listView.Items.Clear();
                     listView.Items.Add(result.ToString());
                 }
-
             }
             catch (Exception)
             { }

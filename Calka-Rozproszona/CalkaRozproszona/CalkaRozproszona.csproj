@@ -64,6 +64,8 @@
     <Compile Include="Classes\ConcreteListCheckIfFinished.cs" />
     <Compile Include="Classes\ConcreteListConnectedClients.cs" />
     <Compile Include="Classes\ConcreteListServerInformations.cs" />
+    <Compile Include="Classes\ConcreteMathematicObservator.cs" />
+    <Compile Include="Classes\ConcreteResultObservator.cs" />
     <Compile Include="Classes\ListObservator.cs" />
     <Compile Include="ClientApplication.cs">
       <SubType>Form</SubType>

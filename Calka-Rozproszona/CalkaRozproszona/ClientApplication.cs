@@ -17,7 +17,9 @@ namespace CalkaRozproszona
     public partial class ClientApplication : Form
     {
         Client client;
-        ListObservator listObservator;
+        IObserver listObservator;
+        IObserver mathObservator;
+        IObserver resultObservator;
         int numberOfSharedThreads = 2;
 
         public ClientApplication()
@@ -64,12 +66,21 @@ namespace CalkaRozproszona
             client = new Client(address, port);
             
             listObservator = new ConcreteListServerInformations(listOfInformations);
+            mathObservator = new ConcreteMathematicObservator(comboFunction, txtFrom, txtTo, txtAccuracy);
+            resultObservator = new ConcreteResultObservator(txtResult);
+            
             client.AddObserver(listObservator);
+            client.Mathematic.AddObserver(mathObservator);
+            client.Mathematic.AddObserver(resultObservator);
 
             client.Connect();
 
-            if(client.Server.Connected)
-                btnConnect.Enabled = false;
+            if (client.Server.Connected)
+            {
+                //btnConnect.Enabled = false;
+                groupBox1.Enabled = false;
+                button1.Enabled = true;
+            }
         }
 
         private void AddInformation(string message)
@@ -84,12 +95,14 @@ namespace CalkaRozproszona
         {
             client.DeclaredThreads = numberOfSharedThreads;
             client.SendCommand(null, Library.CommandType.READY, numberOfSharedThreads);
+            button1.Enabled = false;
         }
 
         private void ClientApplication_FormClosing(object sender, FormClosingEventArgs e)
         {
             //client.Server.Close();
-            client.Finish();
+            if (client != null)
+                client.Finish();
         }
     }
 }

@@ -55,14 +55,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtFrom = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.listResult = new System.Windows.Forms.ListView();
             this.label9 = new System.Windows.Forms.Label();
             this.txtNumberOfThreads = new System.Windows.Forms.TextBox();
             this.lblTime = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtSection = new System.Windows.Forms.TextBox();
-            this.listResult = new System.Windows.Forms.ListView();
-            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericClients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPort)).BeginInit();
@@ -376,6 +376,17 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Obliczenia...";
             // 
+            // listResult
+            // 
+            this.listResult.Enabled = false;
+            this.listResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listResult.Location = new System.Drawing.Point(61, 94);
+            this.listResult.Name = "listResult";
+            this.listResult.Size = new System.Drawing.Size(133, 22);
+            this.listResult.TabIndex = 0;
+            this.listResult.UseCompatibleStateImageBehavior = false;
+            this.listResult.View = System.Windows.Forms.View.List;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -405,6 +416,17 @@
             this.lblTime.Size = new System.Drawing.Size(15, 16);
             this.lblTime.TabIndex = 0;
             this.lblTime.Text = "0";
+            this.lblTime.Visible = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label11.Location = new System.Drawing.Point(7, 94);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(48, 16);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Wynik:";
             // 
             // label10
             // 
@@ -415,6 +437,7 @@
             this.label10.Size = new System.Drawing.Size(70, 16);
             this.label10.TabIndex = 0;
             this.label10.Text = "Czas[ms]: ";
+            this.label10.Visible = false;
             // 
             // label8
             // 
@@ -435,27 +458,6 @@
             this.txtSection.Name = "txtSection";
             this.txtSection.Size = new System.Drawing.Size(67, 20);
             this.txtSection.TabIndex = 1;
-            // 
-            // listResult
-            // 
-            this.listResult.Enabled = false;
-            this.listResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.listResult.Location = new System.Drawing.Point(61, 94);
-            this.listResult.Name = "listResult";
-            this.listResult.Size = new System.Drawing.Size(133, 22);
-            this.listResult.TabIndex = 0;
-            this.listResult.UseCompatibleStateImageBehavior = false;
-            this.listResult.View = System.Windows.Forms.View.List;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(7, 94);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(48, 16);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Wynik:";
             // 
             // ServerApplication
             // 

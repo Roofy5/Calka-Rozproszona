@@ -18,9 +18,9 @@ namespace CalkaRozproszona
     public partial class ServerApplication : Form
     {
         Server server;
-        ListObservator listObservator;
-        ListObservator connectedClientsObservator;
-        ListObservator resultObservator;
+        IObserver listObservator;
+        IObserver connectedClientsObservator;
+        IObserver resultObservator;
 
         double lowerBound = 0;
         double upperBound = 0;
@@ -140,6 +140,7 @@ namespace CalkaRozproszona
         private void btnStop_Click(object sender, EventArgs e)
         {
             server.StopServer();
+            server = null;
         }
 
         private void SendSettingsToClients()
@@ -170,7 +171,7 @@ namespace CalkaRozproszona
 
         private void RemoveNotConnectedClients()
         {
-            server.Clients.RemoveAll(client => client.Client.Connected == false);
+            server.Clients.RemoveAll(client => client.Client.Connected == false || client.DeclaredThreads == 0);
         }
     }
 }

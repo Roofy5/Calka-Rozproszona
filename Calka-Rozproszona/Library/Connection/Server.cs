@@ -36,7 +36,6 @@ namespace Library
             get { return server; }
         }
 
-
         public Server(IPAddress host, int port)
         {
             this.host = host;
@@ -144,9 +143,12 @@ namespace Library
 
                 foreach (var client in clients)
                 {
-                    senderReceiver.SendCommand(client.Stream, CommandType.STOP, "Koniec pracy");
-                    client.Stream.Close();
-                    client.Client.Close();
+                    if (client.Client.Connected)
+                    {
+                        senderReceiver.SendCommand(client.Stream, CommandType.STOP, "Koniec pracy");
+                        client.Stream.Close();
+                        client.Client.Close();
+                    }
                 }
 
                 server.Stop();

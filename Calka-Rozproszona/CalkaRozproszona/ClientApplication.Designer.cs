@@ -52,10 +52,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtFrom = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtResult = new System.Windows.Forms.TextBox();
             this.txtTime = new System.Windows.Forms.TextBox();
+            this.txtResult = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericThreads)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPort)).BeginInit();
@@ -216,6 +216,7 @@
             // 
             // button1
             // 
+            this.button1.Enabled = false;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button1.Location = new System.Drawing.Point(14, 130);
             this.button1.Name = "button1";
@@ -330,41 +331,43 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Wynik";
             // 
-            // label8
+            // txtTime
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(6, 25);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 16);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Czas:";
+            this.txtTime.Enabled = false;
+            this.txtTime.Location = new System.Drawing.Point(7, 87);
+            this.txtTime.Name = "txtTime";
+            this.txtTime.Size = new System.Drawing.Size(136, 20);
+            this.txtTime.TabIndex = 11;
+            this.txtTime.Visible = false;
+            // 
+            // txtResult
+            // 
+            this.txtResult.Enabled = false;
+            this.txtResult.Location = new System.Drawing.Point(9, 44);
+            this.txtResult.Name = "txtResult";
+            this.txtResult.Size = new System.Drawing.Size(134, 20);
+            this.txtResult.TabIndex = 10;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(6, 75);
+            this.label9.Location = new System.Drawing.Point(6, 24);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(48, 16);
             this.label9.TabIndex = 9;
             this.label9.Text = "Wynik:";
             // 
-            // txtResult
+            // label8
             // 
-            this.txtResult.Enabled = false;
-            this.txtResult.Location = new System.Drawing.Point(9, 95);
-            this.txtResult.Name = "txtResult";
-            this.txtResult.Size = new System.Drawing.Size(134, 20);
-            this.txtResult.TabIndex = 10;
-            // 
-            // txtTime
-            // 
-            this.txtTime.Enabled = false;
-            this.txtTime.Location = new System.Drawing.Point(7, 45);
-            this.txtTime.Name = "txtTime";
-            this.txtTime.Size = new System.Drawing.Size(136, 20);
-            this.txtTime.TabIndex = 11;
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label8.Location = new System.Drawing.Point(6, 67);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 16);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Czas:";
+            this.label8.Visible = false;
             // 
             // ClientApplication
             // 

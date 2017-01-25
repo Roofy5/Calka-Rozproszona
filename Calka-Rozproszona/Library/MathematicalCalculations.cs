@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class MathematicalCalculations
+    public class MathematicalCalculations : IObservable
     {
         public double LowerBound { get; set; }
         public double UpperBound { get; set; }
         public double Accuracy { get; set; }
+        public double Result { get; set; }
         public int NumberOfThreads { get; set; }
         public IFunction Function { get; set; }
+        private List<IObserver> observers;
 
         public MathematicalCalculations()
         {
             LowerBound = 0;
             UpperBound = 0;
             Accuracy = 0.001;
+            Result = 0;
             NumberOfThreads = 1;
             Function = null;
+            observers = new List<IObserver>();
         }
 
         public double Calculate()
@@ -34,12 +38,31 @@ namespace Library
                     wyniki[watek] += Trapez(Function.function(x), Function.function(x + Accuracy), Accuracy);
             });
 
-            return wyniki.Sum();
+            Result = wyniki.Sum();
+            return Result;
         }
 
         private double Trapez(double a, double b, double h)
         {
             return (a + b) * h / 2.0;
+        }
+
+
+
+        public void AddObserver(IObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void RemoveObserver(IObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void UpdateObservers()
+        {
+            foreach (var ob in observers)
+                ob.Update(this);
         }
     }
 }

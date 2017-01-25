@@ -30,6 +30,10 @@ namespace Library
             get { return declaredThreads; }
             set { declaredThreads = value; }
         }
+        public MathematicalCalculations Mathematic
+        {
+            get { return mathematic; }
+        }
 
         public Client(IPAddress address, int port)
         {
@@ -109,6 +113,7 @@ namespace Library
                 case CommandType.FUNCTION:
                     {
                         mathematic.Function = FunctionsFactory.GetFunction(receivedValues[0]);
+                        mathematic.UpdateObservers();
                         break;
                     }
                 case CommandType.SECTION:
@@ -117,7 +122,9 @@ namespace Library
                         mathematic.LowerBound = double.Parse(receivedValues[0]);
                         mathematic.UpperBound = double.Parse(receivedValues[1]);
                         mathematic.Accuracy = double.Parse(receivedValues[2]);
+                        mathematic.UpdateObservers();
                         double result = mathematic.Calculate();
+                        mathematic.UpdateObservers();
                         SendCommand(null, CommandType.RESULT, result);
                         break;
                     }
